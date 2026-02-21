@@ -40,3 +40,15 @@ function checkoutWA() {
     const pesanEncoded = encodeURIComponent(pesan);
     window.open(`https://wa.me/${nomorWA}?text=${pesanEncoded}`, '_blank');
 }
+
+// Memantau gerakan scroll pada layar
+window.addEventListener('scroll', function() {
+    const header = document.querySelector('header');
+    
+    // Jika layar di-scroll lebih dari 10 pixel dari atas
+    if (window.scrollY > 10) {
+        header.classList.add('scrolled'); // Ubah lengkungan ke bawah
+    } else {
+        header.classList.remove('scrolled'); // Kembalikan lengkungan ke atas
+    }
+});
