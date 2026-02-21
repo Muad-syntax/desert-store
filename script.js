@@ -46,7 +46,7 @@ window.addEventListener('scroll', function() {
     const header = document.querySelector('header');
     
     // Jika layar di-scroll lebih dari 10 pixel dari atas
-    if (window.scrollY > 10) {
+    if (window.scrollY > 50) {
         header.classList.add('scrolled'); // Ubah lengkungan ke bawah
     } else {
         header.classList.remove('scrolled'); // Kembalikan lengkungan ke atas
