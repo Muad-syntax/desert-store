@@ -39,6 +39,27 @@ body::before {
   margin-right: 20px;
 }
 
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 30px;
+  height: 4px;
+  background-color: #000;
+  border-radius: 5px;
+}
+
 ul {
   display: flex;
   align-items: center;
@@ -204,4 +225,36 @@ footer {
         flex-direction: column; 
         gap: 10px;
     }
+
+    .hamburger {
+      display: flex;
+    }
+
+    ul#nav-menu {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 70px;
+      left: 0;
+      width: 100%;
+      background-color: #FFF7CD;
+      padding: 20px 0;
+      box-shadow: 0 10px 15px rgb(0,0,0,0.1);
+      border-radius: 0 0 20px 20px;
+      z-index: -1;
+      opacity: 0;
+      visibility: inherit;
+      transform: translateY(-20px);
+      transition: all 0.4s ease-in-out;
+    }
+
+    ul#nav-menu.tampil {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+}
+
+header.menu-buka {
+  border-radius: 0 !important;
 }

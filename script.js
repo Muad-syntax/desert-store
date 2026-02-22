@@ -52,3 +52,12 @@ window.addEventListener('scroll', function() {
         header.classList.remove('scrolled'); // Kembalikan lengkungan ke atas
     }
 });
+
+const hamburger = document.getElementById('hamburger-menu');
+const navMenu = document.getElementById('nav-menu');
+const headerElement = document.querySelector('header');
+
+hamburger.addEventListener('click', function() {
+    navMenu.classList.toggle('tampil');
+    headerElement.classList.toggle('menu-buka');
+})
