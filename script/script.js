@@ -1,5 +1,3 @@
-const { use } = require("react");
-
 let keranjang = [];
 let totalHarga = 0;
 
@@ -97,41 +95,29 @@ function sinkronkanKeranjangRealtime(uid) {
         teksTotal.innerText = `Rp. ${total.toLocaleString()}`;
     });
 }
-async function checkoutWA() {
-    const user = window.auth.currentUser;
-    if (!user) {
-        alert("Silahkan login terlebih dahulu");
-        window.location.href = "login.html";
+function checkoutWA() {
+    if (!window.isUserLoggedIn) {
+        alert("Silahkan login terlebih dahulu sebelum memesan");
+        window.location.href = "login.html"
         return;
     }
 
-    const cartRef = window.doc(window.db, "carts", user.uid);
-    const cartSnap = await window.getDoc(cartRef);
-    let items = [];
-
-    if (cartSnap.exists()) {
-        items = cartSnap.data().items;
+    if (keranjang.length === 0) {
+        alert("Keranjang Anda masih kosong. Silahkan dipilih menunya!");
+        return
     }
+    const nomorWA = "+6285795125230"
+    let pesan = "Hallo kak, Saya ingin memesan Mochi dari toko Anda:\n\n";
 
-    if (items.length === 0) {
-        alert("Keranjang masih kosong, silahkan pilih menu");
-        return;
-    }
+    keranjang.forEach((item, index) => {
+        pesan += `${index + 1}. ${item.nama} - Rp. ${item.harga.toLocaleString('id-ID')}\n`;
+    });
 
-    let pesan = "Hallo kak, mau mesen dong";
-    let totalBelanja = 0;
-    
-    items.forEach((item, index) => {
-        pesan += `${index + 1}. ${item.nama} - ${item.jumlah}x (Rp ${item.harga * item.jumlah})%0A`;
-        totalBelanja += (item.harga * item.jumlah)
-    })
+    pesan += `\n*Total Tagihan: Rp ${totalHarga.toLocaleString('id-ID')}*`;
+    pesan += "\n\nApakah pesanan saya bisa diproses?";
 
-    pesan += `%0A*Total Pembayaran: Rp ${totalBelanja}*`;
-
-    const nomorWA = "6285795125230";
-    const urlWA = `https://api.whatsapp.com/send?phone=${nomorWA}&text=${pesan}`;
-
-    window.open(urlWA, '_blank');
+    const pesanEncoded = encodeURIComponent(pesan);
+    window.open(`https://wa.me/${nomorWA}?text=${pesanEncoded}`, '_blank');
 }
 
 // Memantau gerakan scroll pada layar
